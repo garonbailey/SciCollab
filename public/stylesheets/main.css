@@ -1,0 +1,33 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	color: green;
+}
+
+.form-select ul {
+	text-align: center;
+	list-style: none;
+}
+
+.form-select ul li {
+	display: inline;
+}
+
+.form-container {
+	margin: 0 auto;
+	width: 400px;
+	height: 500px;
+	overflow: hidden;
+}
+
+.form-container > div {
+	display: inline-block;
+	width: 400px;
+	height: 500px;
+	text-align: center;
+	vertical-align: top;
+}
