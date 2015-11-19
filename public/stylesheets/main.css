@@ -8,6 +8,29 @@ body {
 	color: green;
 }
 
+a {
+	text-decoration: none;
+	color: steelblue;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: red;
+}
+
+header > div {
+	display: inline-block;
+}
+
+header > div ul {
+	list-style: none;
+	text-align: right;
+}
+
+header > div ul li {
+	list-style: none;
+}
+
 .form-select ul {
 	text-align: center;
 	list-style: none;
