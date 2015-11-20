@@ -1,49 +1,69 @@
-<div class="sessions">
-	<div class="form-select">
-		<ul>
-			<li><a href="#login">Login</a></li>
-			<li><a href="#signup">Sign Up</a></li>
-		</ul>
-	</div>
-	<div class="form-container">
-		<div id="login" class="login">
-			<h2>Login</h2>
-			<form method="POST" action="/session">
-				<input type="text" placeholder="Email"><br/>
-				<input type="password" placeholder="Password"><br/>
-				<input type="submit" placeholder="Login">
-			</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+</head>
+<body>
+	<header>
+		<% include ../partials/open_header %>
+	</header>
+	<main>
+
+		<div class="sessions">
+			<div class="form-select">
+				<ul>
+					<li><a href="#login">Login</a></li>
+					<li><a href="#signup">Sign Up</a></li>
+				</ul>
+			</div>
+			<div class="message">
+				<%= flash.message %>
+			</div>
+			<div class="form-container">
+				<div id="login" class="login">
+					<h2>Login</h2>
+					<form method="POST" action="/session">
+						<input type="text" name="session[email]" placeholder="Email"><br/>
+						<input type="password" name="session[pass]" placeholder="Password"><br/>
+						<input type="submit" placeholder="Login">
+					</form>
+				</div>
+				<div id="signup" class="signup">
+					<h2>Sign Up</h2>
+					<form method="POST" action="/users/new">
+						<h3>Credentials</h3>
+						<input type="text" name="user[email]" placeholder="Email"><br/>
+						<input type="password" name="user[password]" placeholder="Password"><br/>
+						<!-- <input type="password" name="user[password]" placeholder="Confirm Password"><br/> -->
+						<h3>Field of Study</h3>
+						<select name="user[field]">
+						  <option value="biology">Biology</option>
+						  <option value="chemistry">Chemistry</option>
+						  <option value="physics">Physics</option>
+						  <option value="geology">Geology</option>
+						</select>
+						<input type="text" name="user[research][]" placeholder="General research areas, separated by commas (i.e. genetics, ecology, biochemistry, physical chemistry) . . ."><br/>
+						<input type="text" name="user[organization]"placeholder="Current Organization"><br/>
+						<h3>Education</h3>
+						<select name="user[degree]">
+							<option value="bachelors">B.S.</option>
+							<option value="masters">M.S.</option>
+							<option value="phd">Ph.D.</option>
+							<option value="medical">M.D.</option>
+						</select>
+						<input type="text" name="user[education]" placeholder="Granting Institution"><br/>
+						<h3>About You</h3>
+						<input type="text" name="user[firstname]" placeholder="First Name"><br/>
+						<input type="text" name="user[lastname]" placeholder="Last Name"><br/>
+						<textarea col=64 rows=8 name="user[bio]"placeholder="Tell us about yourself (Research, personal, anything you want others to know"></textarea><br/>
+						<input type="submit" value="Start Collaborating!">
+					</form>
+				</div>
+			</div>
 		</div>
-		<div id="signup" class="signup">
-			<h2>Sign Up</h2>
-			<form method="POST" action="/users/signup">
-				<h3>Credentials</h3>
-				<input type="text" name="user[email]" placeholder="Email"><br/>
-				<input type="password" name="user[password]" placeholder="Password"><br/>
-				<!-- <input type="password" name="user[password]" placeholder="Confirm Password"><br/> -->
-				<h3>Field of Study</h3>
-				<select name="user[field]">
-				  <option value="biology">Biology</option>
-				  <option value="chemistry">Chemistry</option>
-				  <option value="physics">Physics</option>
-				  <option value="geology">Geology</option>
-				</select>
-				<input type="text" name="user[research][]" placeholder="General research areas, separated by commas (i.e. genetics, ecology, biochemistry, physical chemistry) . . ."><br/>
-				<input type="text" name="user[organization]"placeholder="Current Organization"><br/>
-				<h3>Education</h3>
-				<select name="user[degree]">
-					<option value="bachelors">B.S.</option>
-					<option value="masters">M.S.</option>
-					<option value="phd">Ph.D.</option>
-					<option value="medical">M.D.</option>
-				</select>
-				<input type="text" name="user[education]" placeholder="Granting Institution"><br/>
-				<h3>About You</h3>
-				<input type="text" name="user[firstname]" placeholder="First Name"><br/>
-				<input type="text" name="user[lastname]" placeholder="Last Name"><br/>
-				<textarea col=64 rows=8 name="user[bio]"placeholder="Tell us about yourself (Research, personal, anything you want others to know"></textarea><br/>
-				<input type="submit" value="Start Collaborating!">
-			</form>
-		</div>
-	</div>
-</div>
+
+	</main>
+	<% include ../partials/footer %>
+	<% include ../partials/scripts %>
+</body>
+</html>

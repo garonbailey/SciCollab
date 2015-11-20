@@ -13,9 +13,13 @@ var express          = require('express'),
 	MONGOURI         = /*process.env.MONGO_URI ||*/ "mongodb://localhost:27017",
 	DBNAME           = "scicollab",
 	PORT             = /*process.end.PORT ||*/ 3000,
-	mongo;
+	presentUser,
+	mongo,
+	db;
 
 //Set Views
+server.use(express.static('./public'));
+
 server.set('views', './views');
 server.set('view engine', 'ejs');
 
@@ -25,8 +29,7 @@ server.use(session({
 	resave: false,
 	saveUninitialized: true
 }));
-server.use(expressLayouts);
-server.use(express.static('./public'));
+// server.use(expressLayouts);
 server.use(morgan('dev'));
 server.use(bodyParser.urlencoded({
 	extended: true
@@ -62,58 +65,75 @@ userSchema.pre('save', function (next) {
 	});
 });
 
-//bcrypt check pass on login
-// bcrypt.compare(passAttempt, hash, function (err, res) {
-// 	if (err) {
-// 		message = "Incorrect password";
-// 		console.log(err);
-// 	} else {
-// 		//set session & current user, then res.redirect to 'projects/index'
-// 	}
-// });
 
 //Session Stuff
+server.get('/login', function (req, res) {
+	var flash = {
+		message: ""
+	};
+	res.render('users/new', {
+		flash: flash
+	});
+});
+
 server.post('/session', function (req, res) {
-	var userLogin = req.body.session.email;
+	var userLogin = req.body.session;
 	req.session.currentUser;
-	User.findOne({ email: userLogin }, function (err, sessionUser) {
-		if (err) {
+	User.findOne({ email: userLogin.email }, function (userErr, sessionUser) {
+		if (userErr) {
 			console.log(err);
-			res.redirect(302, '/user/login');
-		} else if (req.body.session.password !== sessionUser.password) {
-			res.redirect(302, '/user/login');			
+			res.redirect(302, '/login');
 		} else {
-			req.session.currentUser = sessionUser;
-			console.log(req.session.currentUser);
-			res.redirect(302, '/articles/');
+			bcrypt.compare(userLogin.pass, sessionUser.password, function(passErr, cryptRes) {
+				if (passErr) {
+					var passErrFlash = {
+						message: "Error Logging in"
+					};
+					console.log(err);
+					res.render('users/new', {
+						flash: passErrFlash
+					});
+				} else if (cryptRes) {
+					req.session.currentUser = sessionUser._id;
+					presentUser = sessionUser;
+					res.redirect(302, '/projects');
+				} else if (!cryptRes) {
+					var invalidFlash = {
+						message: "Invalid Email/Password Combination"
+					};
+					res.render('users/new', {
+						flash: invalidFlash
+					});
+				}
+			});
 		}
 	});
+});
+
+server.get('/logout', function (req, res) {
+	delete req.session.currentUser;
+	presentUser = undefined;
+	res.redirect(302, '/login');
 });
 
 var requireCurrentUser = function (req, res, next) {
 	if (req.session.currentUser) {
 		next();
 	} else {
-		res.redirect(302, '/user/login');
+		res.redirect(302, '/login');
 	}
 };
 
-// server.delete('/session', function (req, res) {
-// 	req.session.currentUser;
-// 	req.locals.currentUser;
-// 	res.redirect(302, '/');
-// });
-
 //Routes
+
+//No Current User Required
 server.get('/', function (req, res) {
-	res.render('index');
+	res.render('index', {
+		presentUser: presentUser
+	});
 });
 
-server.get('/signup', function (req, res) {
-	res.render('users/signup');
-});
-
-server.post('/users/signup', function (req, res) {
+server.post('/users/new', function (req, res) {
 	var userInfo = req.body.user;
 
 	var newUser = new User(userInfo);
@@ -130,20 +150,24 @@ server.post('/users/signup', function (req, res) {
 	});
 });
 
-server.get('/users/', function (req, res) {
+//With Current User
+
+//User routes
+server.get('/users', requireCurrentUser, function (req, res) {
 	User.find({}, function (err, allUsers) {
 		if (err) {
 			console.log(err);
 			res.redirect(302, '/signup');
 		} else {
-			res.render('users/index', { 
-				users: allUsers
+			res.render('users/index', {
+				users: allUsers,
+				presentUser: presentUser
 			});
 		}
 	});
 });
 
-server.get('/users/:id', function (req, res) {
+server.get('/users/:id', requireCurrentUser, function (req, res) {
 	var scientist = req.params.id;
 	User.findOne({_id: scientist}, function (err, singleUser) {
 		if (err) {
@@ -151,11 +175,44 @@ server.get('/users/:id', function (req, res) {
 			res.redirect(302, '/users');
 		} else {
 			res.render('users/show', {
-				singleUser: singleUser
+				singleUser: singleUser,
+				presentUser: presentUser
 			});
 		}
-	})
-})
+	});
+});
+
+//Project routes
+
+server.get('/projects', requireCurrentUser, function (req, res) {
+	var allProjects = db.collection('projects').find({});
+	console.log(allProjects);
+	res.render('projects/index', {
+		projects: allProjects,
+		presentUser: presentUser
+	});
+});
+
+server.get('/projects/new', requireCurrentUser, function (req, res) {
+	res.render('projects/new', {
+		presentUser: presentUser
+	});
+});
+
+server.get('/projects/:id', requireCurrentUser, function (req, res) {
+	var projectID = req.params.id;
+	var currentProject = db.collection('projects').find({ _id: projectID });
+
+	console.log(currentProject);
+	res.render('projects/show', {
+		project: currentProject,
+		presentUser: presentUser
+	});
+});
+
+mongoClient.connect(MONGOURI + "/" + DBNAME, function (err, database) {
+	db = database;
+});
 
 mongoose.connect(MONGOURI + "/" + DBNAME, function (err, database) {
 	mongo = database;

@@ -31,6 +31,10 @@ header > div ul li {
 	list-style: none;
 }
 
+.nav ul li {
+	display: inline;
+}
+
 .form-select ul {
 	text-align: center;
 	list-style: none;

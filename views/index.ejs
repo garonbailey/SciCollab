@@ -1,17 +1,38 @@
-<h2>What is SciCollab?</h2>
-<br/>
-<p>We're a scientific collaboration app. The world of science is expansive. Two or more researchers could be working on the same project half a world away, or maybe colleagues would like more open access to the progress being made from anywhere with an internet connection. How can they more successfully collaborate, share data, and keep up with their collaborators' progress? SciCollab looks to ease that.</p>
-<br/>
-<p>To get started, login or create an account to collaborate with your peers or see what's going on around the world in your field. Initialize and describe projects, store data in tables, make charts and graphs, and give progress notes. Make projects searchable or private. View open, ongoing projects in your area of research interest.</p>
-<br/>
-<p>Science is huge. We're trying to make it a little more connected.</p>
-<br/>
-<h2>Some current projects</h2>
-<br/>
-<ul>
-	<li><a href="#">Some project here</a></li>
-	<li><a href="#">Another project here</a></li>
-	<li><a href="#">One more project here</a></li>
-</ul>
-<br/><!-- take out the breaks and style better later -->
-<p>Ideally, I would like to have a bubble graph with a few projects displayed; click the bubbles to see a brief description, with a link to the project, or perhaps an auto-populated slider. We'll see what I can make work. Deal with this page when I get up to styling concerns.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include partials/head %>
+</head>
+<body>
+	<header>
+		<% if (presentUser) { %>
+			<% include partials/session_header %>
+		<% } else { %>
+			<% include partials/open_header %>
+		<% } %>
+	</header>
+	<main>
+
+		<h2>What is SciCollab?</h2>
+		<br/>
+		<p>We're a scientific collaboration app. The world of science is expansive. Two or more researchers could be working on the same project half a world away, or maybe colleagues would like more open access to the progress being made from anywhere with an internet connection. How can they more successfully collaborate, share data, and keep up with their collaborators' progress? SciCollab looks to ease that.</p>
+		<br/>
+		<p>To get started, login or create an account to collaborate with your peers or see what's going on around the world in your field. Initialize and describe projects, store data in tables, make charts and graphs, and give progress notes. Make projects searchable or private. View open, ongoing projects in your area of research interest.</p>
+		<br/>
+		<p>Science is huge. We're trying to make it a little more connected.</p>
+		<br/>
+		<h2>Some current projects</h2>
+		<br/>
+		<ul>
+			<li><a href="#">Some project here</a></li>
+			<li><a href="#">Another project here</a></li>
+			<li><a href="#">One more project here</a></li>
+		</ul>
+		<br/><!-- take out the breaks and style better later -->
+		<p>Ideally, I would like to have a bubble graph with a few projects displayed; click the bubbles to see a brief description, with a link to the project, or perhaps an auto-populated slider. We'll see what I can make work. Deal with this page when I get up to styling concerns.</p>
+
+	</main>
+	<% include partials/footer %>
+	<% include partials/scripts %>
+</body>
+</html>

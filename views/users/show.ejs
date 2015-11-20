@@ -1,32 +1,49 @@
-<h2><%= singleUser.firstname %> <%= singleUser.lastname %></h2>
-<h3><%= singleUser.organization %>, <% if (singleUser.field === "biology") { %>
-											Biologist
-										<% } else if (singleUser.field === "chemistry") { %>
-											Chemist
-										<% } else if (singleUser.field === "physics") { %>
-											Physicist
-										<% } else if (singleUser.field === "geology") { %>
-											Geologist
-										<% } %></h3>
-	<h4>Contact:</h4>
-		<p><%= singleUser.email %></p>
-	<h4>Education:</h4>
-		<p><% if (singleUser.degree === "bachelors") { %>
-			B.S.,
-		<% } else if (singleUser.degree === "masters") { %>
-			M.S.,
-		<% } else if (singleUser.degree === "phd") { %>
-			Ph.D., 
-		<% } else if (singleUser.degree === "medical") { %>
-			M.D.,
-		<% } %> <%= singleUser.education %></p>
-	<h4>Research Interests:</h4>
-		<p><%= singleUser.research %></p>
-	<h4>About:</h4>
-		<p><%= singleUser.bio %></p>
-	<h4>Projects:</h4>
-		<ul>
-			<% singleUser.projects.forEach (function (project) { %>
-				<li><a href="/projects/<%= project.id %>"><%= project.name %></a></li>
-			<% }) %>
-		</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+</head>
+<body>
+	<header>
+		<% include ../partials/session_header %>
+	</header>
+	<main>
+
+		<h2><%= singleUser.firstname %> <%= singleUser.lastname %></h2>
+		<h3><%= singleUser.organization %>, <% if (singleUser.field === "biology") { %>
+													Biologist
+											<% } else if (singleUser.field === "chemistry") { %>
+												Chemist
+											<% } else if (singleUser.field === "physics") { %>
+												Physicist
+											<% } else if (singleUser.field === "geology") { %>
+												Geologist
+											<% } %></h3>
+			<h4>Contact:</h4>
+				<p><%= singleUser.email %></p>
+			<h4>Education:</h4>
+				<p><% if (singleUser.degree === "bachelors") { %>
+					B.S.,
+				<% } else if (singleUser.degree === "masters") { %>
+					M.S.,
+				<% } else if (singleUser.degree === "phd") { %>
+					Ph.D., 
+				<% } else if (singleUser.degree === "medical") { %>
+					M.D.,
+				<% } %> <%= singleUser.education %></p>
+			<h4>Research Interests:</h4>
+				<p><%= singleUser.research %></p>
+			<h4>About:</h4>
+				<p><%= singleUser.bio %></p>
+			<h4>Projects:</h4>
+				<ul>
+					<% singleUser.projects.forEach (function (project) { %>
+						<li><a href="/projects/<%= project.id %>"><%= project.name %></a></li>
+					<% }); %>
+				</ul>
+
+	</main>
+	<% include ../partials/footer %>
+	<% include ../partials/scripts %>
+</body>
+</html>
