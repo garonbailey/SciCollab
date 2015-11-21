@@ -10,8 +10,8 @@
 	<main>
 
 		<h2>All Scientists</h2>
-		<% users.forEach( function (user) { %>
-			<h3><a href="users/<%= user._id %>"><%= user.firstname user.lastname %></a></h3>
+		<% users.forEach(function (user) { %>
+			<h3><a href="users/<%= user._id %>"><%= user.firstname %> <%= user.lastname %></a></h3>
 				<p><%= user.organization %>, <% if (user.field === "biology") { %>
 													Biologist
 												<% } else if (user.field === "chemistry") { %>
