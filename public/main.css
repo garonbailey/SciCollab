@@ -58,3 +58,15 @@ header > div ul li {
 	text-align: center;
 	vertical-align: top;
 }
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.foot {
+	width: 200px;
+	margin: 0 auto;
+}
