@@ -8,15 +8,12 @@ projectRouter.get('/', requireCurrentUser, function (req, res) {
 	var allProjects = db.collection('projects').find({});
 	console.log(allProjects);
 	res.render('projects/index', {
-		projects: allProjects,
-		presentUser: presentUser
+		projects: allProjects
 	});
 });
 
 projectRouter.get('/new', requireCurrentUser, function (req, res) {
-	res.render('projects/new', {
-		presentUser: presentUser
-	});
+	res.render('projects/new');
 });
 
 projectRouter.post('/', requireCurrentUser, function (req, res) {
@@ -29,8 +26,7 @@ projectRouter.get('/:id', requireCurrentUser, function (req, res) {
 
 	console.log(currentProject);
 	res.render('projects/show', {
-		project: currentProject,
-		presentUser: presentUser
+		project: currentProject
 	});
 });
 
@@ -44,10 +40,6 @@ projectRouter.patch('/:id', requireCurrentUser, function (req, res) {
 
 projectRouter.delete('/:id', requireCurrentUser, function (req, res) {
 	// remove project from DB and redirect to projects' index
-});
-
-mongoClient.connect("mongodb://localhost:27017/scicollab", function (err, database) {
-	db = database;
 });
 
 module.exports = projectRouter;

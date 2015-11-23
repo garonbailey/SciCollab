@@ -1,20 +1,18 @@
-var express          = require('express'),
-	server           = express(),
-	ejs              = require('ejs'),
-	expressLayouts   = require('express-ejs-layouts'),
-	bodyParser       = require('body-parser'),
-	methodOverride   = require('method-override'),
-	bcrypt           = require('bcrypt'),
-	session          = require('express-session'),
-	morgan           = require('morgan'),
-	mongoose         = require('mongoose'),
-	Schema           = mongoose.Schema,
-	mongoClient      = require('mongodb').MongoClient,
-	MONGOURI         = /*process.env.MONGO_URI ||*/ "mongodb://localhost:27017",
-	DBNAME           = "scicollab",
-	PORT             = /*process.end.PORT ||*/ 3000,
-	presentUser,
-	mongo,
+var express        = require('express'),
+	server         = express(),
+	ejs            = require('ejs'),
+	bodyParser     = require('body-parser'),
+	methodOverride = require('method-override'),
+	bcrypt         = require('bcrypt'),
+	session        = require('express-session'),
+	morgan         = require('morgan'),
+	mongoose       = require('mongoose'),
+	Schema         = mongoose.Schema,
+	mongoClient    = require('mongodb').MongoClient,
+	MONGOURI       = /*process.env.MONGO_URI ||*/ "mongodb://localhost:27017",
+	PORT           = 3000,
+	DBNAME         = "scicollab",
+	// mongo,
 	db;
 
 //Set Views
@@ -37,6 +35,7 @@ server.use(methodOverride('_method'));
 
 server.use(function (req, res, next) {
 	res.locals.currentUser = req.session.currentUser;
+	next();
 });
 
 //Controllers & Models
@@ -58,19 +57,13 @@ server.get('/', function (req, res) {
 });
 
 //Database & Server Listen
-// mongoClient.connect(MONGOURI + "/" + DBNAME, function (err, database) {
-// 	db = database;
+mongoClient.connect(MONGOURI + "/" + DBNAME, function (err, mongoDB) {
+	db = mongoDB;
 // });
 
-mongoose.connect(MONGOURI + "/" + DBNAME, function (err, database) {
-	mongo = database;
-	mongoClient.connect(MONGOURI + "/" + DBNAME, function (err, mongoDB) {
-		db = mongoDB;
-		server.listen(PORT, function () {
-			console.log("SciCollab Server, listening here on Port 3000.")
-		});
+// mongoose.connect(MONGOURI + "/" + DBNAME, function (err, database) {
+// 	mongo = database;
+	server.listen(PORT, function () {
+		console.log("SciCollab Server, listening here on Port " + PORT + ".");
 	});
-	// server.listen(PORT, function () {
-	// 	console.log("SciCollab Server, listening here on Port 3000.")
-	// });
 });

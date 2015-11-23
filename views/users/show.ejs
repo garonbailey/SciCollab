@@ -41,6 +41,9 @@
 						<li><a href="/projects/<%= project.id %>"><%= project.name %></a></li>
 					<% }); %>
 				</ul>
+			<% if (singleUser._id === currentUser._id) { %> 
+				<h4><a href="/users/<%= singleUser._id %>/edit">Edit Profile</a></h4>
+			<% } %>
 
 	</main>
 	<% include ../partials/footer %>

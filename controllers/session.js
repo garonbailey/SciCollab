@@ -49,7 +49,7 @@ sessionRouter.post('/session', function (req, res) {
 
 sessionRouter.get('/logout', function (req, res) {
 	delete req.session.currentUser;
-	presentUser = undefined;
+	res.locals.currentUser = undefined;
 	res.redirect(302, '/login');
 });
 

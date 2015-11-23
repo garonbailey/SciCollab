@@ -11,8 +11,7 @@ userRouter.get('/', requireCurrentUser, function (req, res) {
 			res.redirect(302, '/signup');
 		} else {
 			res.render('users/index', {
-				users: allUsers,
-				presentUser: presentUser
+				users: allUsers
 			});
 		}
 	});
@@ -43,8 +42,7 @@ userRouter.get('/:id', requireCurrentUser, function (req, res) {
 			res.redirect(302, '/users');
 		} else {
 			res.render('users/show', {
-				singleUser: singleUser,
-				presentUser: presentUser
+				singleUser: singleUser
 			});
 		}
 	});
@@ -60,6 +58,6 @@ userRouter.patch('/:id', requireCurrentUser, function (req, res) {
 
 userRouter.delete('/:id', requireCurrentUser, function (req, res) {
 	// delete individual user from DB, redirect to users' or projects' index
-})
+});
 
 module.exports = userRouter;
