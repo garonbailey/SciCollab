@@ -22,6 +22,8 @@ userRouter.post('/new', function (req, res) {
 
 	var newUser = new User(userInfo);
 	newUser.projects = [];
+	newUser.colleagues = [];
+	newUser.research = newUser.research.split(/,?\W/);
 	newUser.save(function (err, userCreated) {
 		if (err) {
 			console.log(newUser);
@@ -49,11 +51,25 @@ userRouter.get('/:id', requireCurrentUser, function (req, res) {
 });
 
 userRouter.get('/:id/edit', requireCurrentUser, function (req, res) {
-	// edit individual user form rendered
+	var userToEdit = req.params.id;
+	User.findOne({_id: userToEdit}, function (err, userEdit) {
+		if (err) {
+			console.log(err);
+			res.redirect(302, '/users');
+		} else if (userEdit._id === currentUser._id) {
+			res.render('/users/edit', {
+				userEdit: userEdit
+			});
+		} else {
+			res.redirect(302, '/users');
+		}
+	});
 });
 
 userRouter.patch('/:id', requireCurrentUser, function (req, res) {
 	// individual user update action, redirect back to '/:id' that brought you there
+	var userUpdate = req.params.id;
+	//mongoose find and update needed
 });
 
 userRouter.delete('/:id', requireCurrentUser, function (req, res) {

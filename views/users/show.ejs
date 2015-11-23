@@ -32,7 +32,10 @@
 					M.D.,
 				<% } %> <%= singleUser.education %></p>
 			<h4>Research Interests:</h4>
-				<p><%= singleUser.research %></p>
+				<p><% singleUser.research.forEach (function (research) { %> 
+						<li><%= research %></li>
+					<% }) %>
+				</p>
 			<h4>About:</h4>
 				<p><%= singleUser.bio %></p>
 			<h4>Projects:</h4>

@@ -11,7 +11,7 @@ var userSchema = new Schema ({
 	degree: { type: String },
 	education: { type: String, required: true },
 	bio: { type: String },
-	projects: [{ namee: String,
+	projects: [{ name: String,
 				 id: String
 	}],
 	email: { type: String, required: true, unique: true},

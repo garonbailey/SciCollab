@@ -8,11 +8,12 @@
 		<% include ../partials/session_header %>
 	</header>
 	<main>
+		<h2>Edit: <%= userEdit.firstname %> <%= userEdit.lastname %></h2>
 		<div id="signup" class="signup">
 			<h2>Sign Up</h2>
-			<form method="PATCH" action="/edit">
+			<form method="PATCH" action="users/<%= userEdit._id %>">
 				<h3>Credentials</h3>
-				<input type="text" name="user[email]" placeholder="Email" value="<%= currentUser.email %>"><br/>
+				<input type="text" name="user[email]" placeholder="Email" value="<%= userEdit.email %>"><br/>
 				<input type="password" name="user[password]" placeholder="Password"><br/>
 				<!-- <input type="password" name="user[password]" placeholder="Confirm Password"><br/> -->
 				<h3>Field of Study</h3>
@@ -22,8 +23,8 @@
 				  <option value="physics">Physics</option>
 				  <option value="geology">Geology</option>
 				</select>
-				<input type="text" name="user[research][]" placeholder="General research areas, separated by commas (i.e. genetics, ecology, biochemistry, physical chemistry) . . ." value="<%= currentUser.research %>"><br/>
-				<input type="text" name="user[organization]" placeholder="Current Organization" value="<%= currentUser.organization %>"><br/>
+				<input type="text" name="user[research][]" placeholder="General research areas, separated by commas (i.e. genetics, ecology, biochemistry, physical chemistry) . . ." value="<%= userEdit.research %>"><br/>
+				<input type="text" name="user[organization]" placeholder="Current Organization" value="<%= userEdit.organization %>"><br/>
 				<h3>Education</h3>
 				<select name="user[degree]">
 					<option value="bachelors">B.S.</option>
@@ -31,11 +32,11 @@
 					<option value="phd">Ph.D.</option>
 					<option value="medical">M.D.</option>
 				</select>
-				<input type="text" name="user[education]" placeholder="Granting Institution" value="<%= currentUser.education %>"><br/>
+				<input type="text" name="user[education]" placeholder="Granting Institution" value="<%= userEdit.education %>"><br/>
 				<h3>About You</h3>
-				<input type="text" name="user[firstname]" placeholder="First Name" value="<%= currentUser.firstname %>"><br/>
-				<input type="text" name="user[lastname]" placeholder="Last Name" value="<%= currentUser.lastname %>"><br/>
-				<textarea col=64 rows=8 name="user[bio]"placeholder="Tell us about yourself (Research, personal, anything you want others to know"><%= currentUser.bio %></textarea><br/>
+				<input type="text" name="user[firstname]" placeholder="First Name" value="<%= userEdit.firstname %>"><br/>
+				<input type="text" name="user[lastname]" placeholder="Last Name" value="<%= userEdit.lastname %>"><br/>
+				<textarea col=64 rows=8 name="user[bio]"placeholder="Tell us about yourself (Research, personal, anything you want others to know"><%= userEdit.bio %></textarea><br/>
 				<input type="submit" value="Update">
 			</form>
 		</div>
