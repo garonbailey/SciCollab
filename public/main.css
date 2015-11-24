@@ -141,6 +141,10 @@ footer {
 	margin: 0 auto;
 }
 
+.hidden {
+	display: none;
+}
+
 @media (max-width: 650px) {
 	/*header > div {
 		display: block;
@@ -149,7 +153,7 @@ footer {
 	.logo {
 		margin: 0 auto;
 	}*/
-	
+
 	.nav {
 		position: absolute;
 		right: -200px;

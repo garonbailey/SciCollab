@@ -48,9 +48,17 @@
 			<% if (singleUser.password == presentUser.password) { %> 
 				<% console.log("they're the same! page id: " + singleUser.firstname + ", current user id: " + presentUser.firstname); %>
 				<h4><a href="/users/<%= singleUser._id %>/edit">Edit Profile</a></h4>
+				<button class="delete">Delete Account?</button>
+				<span class="deleteForm hidden">
+					<form method="post" action="/users/<%= singleUser._id %>?_method=DELETE">
+							<h4>Are you sure?</h4>
+							<input type="submit" value="Confirm Delete">
+					</form>
+					<button class="cancel">Cancel</button>
+				</span>
 			<% } else if (singleUser.password !== presentUser.password) { %>
 				<% console.log("not the same or error! page id: " + singleUser._id + ", current user id: " + presentUser._id); %>
-				<form method="PATCH" action="/users/<%= presentUser._id %>">
+				<form method="post" action="/users/<%= presentUser._id %>?_method=PATCH">
 					<input type="hidden" name="presentUser[colleagues]" value="<%= singleUser.firstname %> <%= singleUser.lastname %>">
 					<input type="hidden" name="presentUser[colleagues]" value="<%= singleUser._id %>">
 					<input type="submit" value="Add Colleague to Collaborate">
@@ -59,5 +67,7 @@
 
 	</main>
 	<% include ../partials/footer %>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="/app.js"></script>
 </body>
 </html>

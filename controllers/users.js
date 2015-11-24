@@ -87,13 +87,48 @@ userRouter.get('/:id/edit', requireCurrentUser, function (req, res) {
 });
 
 userRouter.patch('/:id', requireCurrentUser, function (req, res) {
-	// individual user update action, redirect back to '/:id' that brought you there
 	var userUpdate = req.params.id;
-	//mongoose find and update needed
+	var updateInfo = req.body.user;
+	var errorFlash = {
+		message: "Error updating"
+	};
+	var successFlash = {
+		message: "Successfully updated!"
+	};
+	updateInfo.research = updateInfo.research[0].split(/,\W?/);
+	updateInfo.password = updateInfo.password;
+	console.log("password pre-salt gen: ", updateInfo.password);
+	bcrypt.genSalt(10, function (err, salt) {
+		var userPass = updateInfo.password;
+		bcrypt.hash(userPass, salt, function (err, hash) {
+			updateInfo.password = hash;
+			console.log("hash gen: ", hash);
+			User.findOneAndUpdate({_id: userUpdate}, { $set: updateInfo }, function (err, updatedUser) {
+				if (err) {
+					console.log(err);
+					console.log(errorFlash.message);
+					res.redirect('/users/' + userUpdate);
+				} else {
+					console.log(successFlash.message);
+					res.redirect(302, '/users/' + userUpdate);
+				}
+			});
+		});
+	});
 });
 
 userRouter.delete('/:id', requireCurrentUser, function (req, res) {
-	// delete individual user from DB, redirect to users' or projects' index
+	var userToDelete = req.params.id;
+	User.findOneAndRemove({_id: userToDelete}, function (err, doc, result) {
+		if (err) {
+			console.log(error);
+			res.redirect(302, '/users/' + userToDelete);
+		} else {
+			console.log("doc: ", doc);
+			console.log("result: ", result);
+			res.redirect(302, '/logout');
+		}
+	});
 });
 
 module.exports = userRouter;
