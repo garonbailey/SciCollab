@@ -31,8 +31,8 @@ sessionRouter.post('/session', function (req, res) {
 						flash: passErrFlash
 					});
 				} else if (cryptRes) {
-					req.session.currentUser = sessionUser._id;
-					res.locals.currentUser = sessionUser;
+					req.session.currentUser = sessionUser;
+					res.locals.presentUser = sessionUser;
 					res.redirect(302, '/projects');
 				} else if (!cryptRes) {
 					var invalidFlash = {
@@ -49,7 +49,7 @@ sessionRouter.post('/session', function (req, res) {
 
 sessionRouter.get('/logout', function (req, res) {
 	delete req.session.currentUser;
-	res.locals.currentUser = undefined;
+	res.locals.presentUser = undefined;
 	res.redirect(302, '/login');
 });
 

@@ -9,16 +9,9 @@
 	</header>
 	<main>
 
-		<form action="/new" method="POST">
+		<form action="/projects/" method="POST">
 			<input type="text" name="project[title]" placeholder="Project name or title"><br/>
-			<input type="hidden" name="project[author.name]" value="<%= currentUser.firstname %> <%=currentUser.lastname %>">
-			<input type="hidden" name="project[author.id]" value="<%= currentUser._id %>">
 			<textarea col=64 rows=8 name="project[description]" placeholder="What's a short abstract for this research project?"></textarea><br/>
-			<% currentUser.colleagues.forEach (function (colleague) { %>
-				<label for="colleague<%=colleague.name%>"><%= colleague.name %></label>
-				<input type="checkbox" name="project[collaborators.name]" id="colleague<%=colleague.name%>"><br/>
-				<input type="hidden" name="project[collaborators.id]" id="colleague<%=colleague.name%>" value="<%=colleague.id%>">
-			<% }) %>
 			<select name="project[open]">
 				<option value="true">Open</option>
 				<option value="false">Private</option>

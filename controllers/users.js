@@ -11,7 +11,8 @@ userRouter.get('/', requireCurrentUser, function (req, res) {
 			res.redirect(302, '/signup');
 		} else {
 			res.render('users/index', {
-				users: allUsers
+				users: allUsers,
+				presentUser: res.locals.presentUser
 			});
 		}
 	});
@@ -23,7 +24,8 @@ userRouter.post('/new', function (req, res) {
 	var newUser = new User(userInfo);
 	newUser.projects = [];
 	newUser.colleagues = [];
-	newUser.research = newUser.research.split(/,?\W/);
+	research = newUser.research;
+	newUser.research = research[0].split(/,\W?/);
 	newUser.save(function (err, userCreated) {
 		if (err) {
 			console.log(newUser);
@@ -31,19 +33,27 @@ userRouter.post('/new', function (req, res) {
 			res.redirect(302, '/signup');
 		} else {
 			console.log(userCreated);
-			res.redirect(302, '/');
+			res.redirect(302, '/login');
 		}
 	});
 });
 
 userRouter.get('/:id', requireCurrentUser, function (req, res) {
 	var scientist = req.params.id;
+	// var presentUser = {
+	// 	id: undefined,
+	// 	name: undefined
+	// };
+	// console.log("res.locals id: " + res.locals.presentUser._id);
+	// presentUser.name = res.locals.presentUser.firstname + " " + res.locals.presentUser.lastname;
+	// console.log("present user outside of mongoose query: " + presentUser);
 	User.findOne({_id: scientist}, function (err, singleUser) {
 		if (err) {
 			console.log(err);
 			res.redirect(302, '/users');
 		} else {
 			res.render('users/show', {
+				presentUser: res.locals.presentUser,
 				singleUser: singleUser
 			});
 		}
@@ -56,9 +66,10 @@ userRouter.get('/:id/edit', requireCurrentUser, function (req, res) {
 		if (err) {
 			console.log(err);
 			res.redirect(302, '/users');
-		} else if (userEdit._id === currentUser._id) {
+		} else if (userEdit._id === presentUser._id) {
 			res.render('/users/edit', {
-				userEdit: userEdit
+				userEdit: userEdit,
+				presentUser: res.locals.presentUser
 			});
 		} else {
 			res.redirect(302, '/users');

@@ -34,7 +34,7 @@ server.use(bodyParser.urlencoded({
 server.use(methodOverride('_method'));
 
 server.use(function (req, res, next) {
-	res.locals.currentUser = req.session.currentUser;
+	res.locals.presentUser = req.session.currentUser;
 	next();
 });
 
@@ -57,12 +57,12 @@ server.get('/', function (req, res) {
 });
 
 //Database & Server Listen
-mongoClient.connect(MONGOURI + "/" + DBNAME, function (err, mongoDB) {
-	db = mongoDB;
+// mongoClient.connect(MONGOURI + "/" + DBNAME, function (err, mongoDB) {
+// 	db = mongoDB;
 // });
 
-// mongoose.connect(MONGOURI + "/" + DBNAME, function (err, database) {
-// 	mongo = database;
+mongoose.connect(MONGOURI + "/" + DBNAME, function (err, database) {
+	mongo = database;
 	server.listen(PORT, function () {
 		console.log("SciCollab Server, listening here on Port " + PORT + ".");
 	});

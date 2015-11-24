@@ -34,7 +34,7 @@
 			<h4>Research Interests:</h4>
 				<p><% singleUser.research.forEach (function (research) { %> 
 						<li><%= research %></li>
-					<% }) %>
+					<% }); %>
 				</p>
 			<h4>About:</h4>
 				<p><%= singleUser.bio %></p>
@@ -44,9 +44,16 @@
 						<li><a href="/projects/<%= project.id %>"><%= project.name %></a></li>
 					<% }); %>
 				</ul>
-			<% if (singleUser._id === currentUser._id) { %> 
+
+			<% if (singleUser._id === presentUser) { %> 
 				<h4><a href="/users/<%= singleUser._id %>/edit">Edit Profile</a></h4>
-			<% } %>
+			<% } else if (singleUser._id !== presentUser) { %>
+				<form method="PATCH" action="/users/<%= presentUser %>">
+					<input type="hidden" name="presentUser[colleagues]" value="<%= singleUser.firstname %> <%= singleUser.lastname %>">
+					<input type="hidden" name="presentUser[colleagues]" value="<%= singleUser._id %>">
+					<input type="submit" value="Add Colleague to Collaborate">
+				</form>
+<% } %>
 
 	</main>
 	<% include ../partials/footer %>

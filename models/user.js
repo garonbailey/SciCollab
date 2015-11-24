@@ -14,6 +14,9 @@ var userSchema = new Schema ({
 	projects: [{ name: String,
 				 id: String
 	}],
+	colleagues: [{ name: String,
+				   id: String
+	}],
 	email: { type: String, required: true, unique: true},
 	password: { type: String, required: true}
 }, {collection: 'users', strict: false}, {strict: false});

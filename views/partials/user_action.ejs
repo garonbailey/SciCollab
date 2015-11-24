@@ -1,0 +1,9 @@
+<% if (singleUser._id === presentUser) { %> 
+	<h4><a href="/users/<%= singleUser._id %>/edit">Edit Profile</a></h4>
+<% } else if (singleUser._id !== presentUser) { %>
+	<form method="PATCH" action="/users/<%= presentUser %>">
+		<input type="hidden" name="presentUser[colleagues]" value="<%= singleUser.firstname %> <%= singleUser.lastname %>">
+		<input type="hidden" name="presentUser[colleagues]" value="<%= singleUser._id %>">
+		<input type="submit" value="Add Colleague to Collaborate">
+	</form>
+<% } %>

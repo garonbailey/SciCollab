@@ -1,0 +1,5 @@
+<% presentUser.colleagues.forEach (function (colleague) { %>
+				<label for="colleague<%=colleague.name%>"><%= colleague.name %></label>
+				<input type="checkbox" name="project[collaborators.name]" id="colleague<%=colleague.name%>"><br/>
+				<input type="hidden" name="project[collaborators.id]" id="colleague<%=colleague.name%>" value="<%=colleague.id%>">
+			<% }) %>
