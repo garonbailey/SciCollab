@@ -52,9 +52,18 @@ userRouter.get('/:id', requireCurrentUser, function (req, res) {
 			console.log(err);
 			res.redirect(302, '/users');
 		} else {
-			res.render('users/show', {
-				presentUser: res.locals.presentUser,
-				singleUser: singleUser
+			User.findOne({_id: res.locals.presentUser._id}, function (localErr, currentUser) {
+				if (localErr) {
+					console.log(localErr);
+					res.redirect(302, '/users');
+				} else {
+					console.log("current user: " + currentUser);
+					console.log("page for: " + singleUser);
+					res.render('users/show', {
+						presentUser: currentUser,
+						singleUser: singleUser
+					});
+				}
 			});
 		}
 	});
@@ -66,8 +75,8 @@ userRouter.get('/:id/edit', requireCurrentUser, function (req, res) {
 		if (err) {
 			console.log(err);
 			res.redirect(302, '/users');
-		} else if (userEdit._id === presentUser._id) {
-			res.render('/users/edit', {
+		} else if (userEdit.password === res.locals.presentUser.password) {
+			res.render('users/edit', {
 				userEdit: userEdit,
 				presentUser: res.locals.presentUser
 			});

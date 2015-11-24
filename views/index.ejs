@@ -5,9 +5,11 @@
 </head>
 <body>
 	<header>
-		<% if (currentUser) { %>
+		<% if (presentUser) { %>
+			<% console.log(presentUser); %>
 			<% include partials/session_header %>
 		<% } else { %>
+			<% console.log(presentUser); %>
 			<% include partials/open_header %>
 		<% } %>
 	</header>
@@ -33,6 +35,5 @@
 
 	</main>
 	<% include partials/footer %>
-	<% include partials/scripts %>
 </body>
 </html>

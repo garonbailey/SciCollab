@@ -45,18 +45,19 @@
 					<% }); %>
 				</ul>
 
-			<% if (singleUser._id === presentUser) { %> 
+			<% if (singleUser.password == presentUser.password) { %> 
+				<% console.log("they're the same! page id: " + singleUser.firstname + ", current user id: " + presentUser.firstname); %>
 				<h4><a href="/users/<%= singleUser._id %>/edit">Edit Profile</a></h4>
-			<% } else if (singleUser._id !== presentUser) { %>
-				<form method="PATCH" action="/users/<%= presentUser %>">
+			<% } else if (singleUser.password !== presentUser.password) { %>
+				<% console.log("not the same or error! page id: " + singleUser._id + ", current user id: " + presentUser._id); %>
+				<form method="PATCH" action="/users/<%= presentUser._id %>">
 					<input type="hidden" name="presentUser[colleagues]" value="<%= singleUser.firstname %> <%= singleUser.lastname %>">
 					<input type="hidden" name="presentUser[colleagues]" value="<%= singleUser._id %>">
 					<input type="submit" value="Add Colleague to Collaborate">
 				</form>
-<% } %>
+			<% } %>
 
 	</main>
 	<% include ../partials/footer %>
-	<% include ../partials/scripts %>
 </body>
 </html>

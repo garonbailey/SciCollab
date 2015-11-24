@@ -10,7 +10,6 @@
 	<main>
 		<h2>Edit: <%= userEdit.firstname %> <%= userEdit.lastname %></h2>
 		<div id="signup" class="signup">
-			<h2>Sign Up</h2>
 			<form method="PATCH" action="users/<%= userEdit._id %>">
 				<h3>Credentials</h3>
 				<input type="text" name="user[email]" placeholder="Email" value="<%= userEdit.email %>"><br/>

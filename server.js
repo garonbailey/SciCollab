@@ -33,12 +33,14 @@ server.use(bodyParser.urlencoded({
 }));
 server.use(methodOverride('_method'));
 
-server.use(function (req, res, next) {
-	res.locals.presentUser = req.session.currentUser;
-	next();
-});
+// server.use(function (req, res, next) {
+// 	res.locals.presentUser = req.session.currentUser;
+// 	next();
+// });
 
 //Controllers & Models
+
+// var localUser = require('./controllers/current_user.js');
 
 var userController = require('./controllers/users.js');
 server.use('/users', userController);
@@ -51,9 +53,17 @@ server.use(sessionController);
 
 var requireCurrentUser = require('./controllers/middleware.js');
 
+server.use(function (req, res, next) {
+	res.locals.presentUser = req.session.currentUser;
+	next();
+});
+
+
 //Index Get
 server.get('/', function (req, res) {
-	res.render('index');
+	res.render('index', {
+		presentUser: res.locals.presentUser
+	});
 });
 
 //Database & Server Listen

@@ -5,7 +5,61 @@
 }
 
 body {
-	color: green;
+	color: grey;
+	background: floralwhite;
+	text-align: center;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Play', sans-serif;
+}
+
+li {
+	list-style: none;
+}
+
+/*accent colors (brown): 441D0E
+	primary (green): 079756;
+*/
+
+header {
+	font-family: 'Play', sans-serif;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	padding: 20px;
+	background: #079756;
+	border-bottom: 2px solid #441D0E;
+}
+
+header .logo {
+	float: left;
+	text-align: left;
+}
+
+.logo img {
+	max-width: 50px;
+}
+
+header .nav {
+	margin-top: 5px;
+	float: right;
+	text-align: right;
+}
+
+.nav li {
+	padding: 5px;
+}
+
+.nav li:hover {
+	background: #441D0E;
+	border-radius: 10%;
+	color: floralwhite;
+}
+
+.nav li a:hover {
+	color: floralwhite;
 }
 
 a {
@@ -15,7 +69,16 @@ a {
 
 a:hover {
 	text-decoration: underline;
-	color: red;
+	color: #079756;
+}
+
+header a {
+	color: floralwhite;
+}
+
+header a:hover {
+	color: floralwhite;
+	border-radius: 10%;
 }
 
 header > div {
@@ -33,6 +96,13 @@ header > div ul li {
 
 .nav ul li {
 	display: inline;
+}
+
+main {
+	margin-top: 80px;
+	width: 90%;
+	margin-right: 5%;
+	margin-left: 5%;
 }
 
 .form-select ul {
@@ -69,4 +139,24 @@ footer {
 .foot {
 	width: 200px;
 	margin: 0 auto;
+}
+
+@media (max-width: 650px) {
+	/*header > div {
+		display: block;
+	}
+
+	.logo {
+		margin: 0 auto;
+	}*/
+	
+	.nav {
+		position: absolute;
+		right: -200px;
+	}
+
+	.nav ul {
+		display: block;
+		width: 200px;
+	}
 }
