@@ -49,7 +49,6 @@
 				</ul>
 
 			<% if (singleUser.password == presentUser.password) { %> 
-				<% console.log("they're the same! page id: " + singleUser.firstname + ", current user id: " + presentUser.firstname); %>
 				<h4><a href="/users/<%= singleUser._id %>/edit">Edit Profile</a></h4>
 				<button class="delete">Delete Account?</button>
 				<span class="deleteForm hidden">
@@ -60,7 +59,6 @@
 					<button class="cancel">Cancel</button>
 				</span>
 			<% } else if (singleUser.password !== presentUser.password) { %>
-				<% console.log("not the same or error! page id: " + singleUser._id + ", current user id: " + presentUser._id); %>
 				<form method="post" action="/users/<%= presentUser._id %>?_method=PATCH">
 					<input type="hidden" name="presentUser[colleagues]" value="<%= singleUser.firstname %> <%= singleUser.lastname %>">
 					<input type="hidden" name="presentUser[colleagues]" value="<%= singleUser._id %>">

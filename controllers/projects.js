@@ -121,6 +121,17 @@ projectRouter.patch('/:id', requireCurrentUser, function (req, res) {
 
 projectRouter.delete('/:id', requireCurrentUser, function (req, res) {
 	// remove project from DB and redirect to projects' index
+	var projectToDelete = req.params.id;
+	Project.findOneAndRemove({_id: projectToDelete}, function (err, doc, result) {
+		if (err) {
+			console.log(error);
+			res.redirect(302, '/projects/' + projectToDelete);
+		} else {
+			console.log("doc: ", doc);
+			console.log("result: ", result);
+			res.redirect(302, '/projects');
+		}
+	});
 });
 
 module.exports = projectRouter;
