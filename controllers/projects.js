@@ -110,8 +110,9 @@ projectRouter.patch('/:id', requireCurrentUser, function (req, res) {
 	var projectToPatch = req.params.id;
 	var projectUpdate = req.body.project;
 
-	Project.findOne({_id: projectToPatch}, function (err, projectPatch) {
-		console.log("I'm trying to patch something");
+	//pre-process data on form submission to more easily push to the project in the DB
+
+	Project.findOneAndUpdate({_id: projectToPatch}, /*info to update the project with; example {$push: { "data.data": projectUpdate.data }} ,*/function (err, projectPatch) {
 		console.log("Form data: ", projectUpdate);
 		console.log("X data: ", projectUpdate.data.x.value);
 		console.log("Y data: ", projectUpdate.data.y.value);
