@@ -112,9 +112,9 @@ projectRouter.patch('/:id', requireCurrentUser, function (req, res) {
 
 	Project.findOne({_id: projectToPatch}, function (err, projectPatch) {
 		console.log("I'm trying to patch something");
-		console.log("Form data: ", projectUpdate.data.data);
-		console.log("updater: ", projectUpdate.data.updater);
-		console.log("Current project: ", projectPatch);
+		console.log("Form data: ", projectUpdate);
+		console.log("X data: ", projectUpdate.data.x.value);
+		console.log("Y data: ", projectUpdate.data.y.value);
 	});
 });
 
