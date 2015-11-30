@@ -1,3 +1,4 @@
+//Confirm Delete Profile
 var $deleteButton = $('.delete');
 var $deleteForm = $('.deleteForm');
 var $cancel       = $('.cancel');
@@ -8,6 +9,15 @@ $cancel.on('click', function () {
 	$deleteForm.toggleClass('hidden');
 });
 
+//Show/Hide Project Description on Index
+var $showDescription = $('.showDescription');
+var $description = $('#projectDescription');
+
+$showDescription.on('click', function () {
+	$desciption.toggleClass('hidden');
+});
+
+//Add extra data inputs; not properly functioning
 var $addData = $('.projectData');
 var $dataInput = $('<input type="text" name="project[data.data][]" placeholder="data">');
 var $dataForm = $('#projectDataForm');
@@ -21,7 +31,3 @@ var inputs = 0;
 $('.addSomeData').on('click', function () {
 	inputs = prompt("How many data points do you have today?");
 });
-
-
-// <button class="projectData">Add data point</button>
-// <form id="projectDataForm" action="./?_method=PATCH" method="post">
