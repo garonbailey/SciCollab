@@ -2,7 +2,8 @@ var express            = require('express'),
 	userRouter         = express.Router(),
 	bcrypt             = require('bcrypt'),
 	User               = require('../models/user.js'),
-	requireCurrentUser = require('./middleware.js');
+	requireCurrentUser = require('./middleware.js'),
+	Project            = require('../models/project.js');
 
 userRouter.get('/', requireCurrentUser, function (req, res) {
 	User.find({}, function (err, allUsers) {
@@ -40,13 +41,6 @@ userRouter.post('/new', function (req, res) {
 
 userRouter.get('/:id', requireCurrentUser, function (req, res) {
 	var scientist = req.params.id;
-	// var presentUser = {
-	// 	id: undefined,
-	// 	name: undefined
-	// };
-	// console.log("res.locals id: " + res.locals.presentUser._id);
-	// presentUser.name = res.locals.presentUser.firstname + " " + res.locals.presentUser.lastname;
-	// console.log("present user outside of mongoose query: " + presentUser);
 	User.findOne({_id: scientist}, function (err, singleUser) {
 		if (err) {
 			console.log(err);
@@ -57,11 +51,27 @@ userRouter.get('/:id', requireCurrentUser, function (req, res) {
 					console.log(localErr);
 					res.redirect(302, '/users');
 				} else {
-					console.log("current user: " + currentUser);
-					console.log("page for: " + singleUser);
-					res.render('users/show', {
-						presentUser: currentUser,
-						singleUser: singleUser
+					Project.find({'author.id': scientist}, function (projectsErr, userProjects) {
+						if (projectsErr) {
+							console.log(projectsErr);
+							res.redirect(302, '/users');
+						} else {
+							Project.find({'collaborators.id': scientist }, function (collabErr, userCollabs) {
+								if (collabErr) {
+									console.log(collabErr);
+									res.redirect(302, '/users');
+								} else {
+									console.log(userProjects);
+									console.log(userCollabs);
+									res.render('users/show', {
+										presentUser: currentUser,
+										singleUser: singleUser,
+										userProjects: userProjects,
+										userCollabs: userCollabs
+									});
+								}
+							});
+						}
 					});
 				}
 			});

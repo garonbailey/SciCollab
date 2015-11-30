@@ -9,14 +9,6 @@ $cancel.on('click', function () {
 	$deleteForm.toggleClass('hidden');
 });
 
-//Show/Hide Project Description on Index
-var $showDescription = $('.showDescription');
-var $description = $('#projectDescription');
-
-$showDescription.on('click', function () {
-	$desciption.toggleClass('hidden');
-});
-
 //Add extra data inputs; not properly functioning
 var $addData = $('.projectData');
 var $dataInput = $('<input type="text" name="project[data.data][]" placeholder="data">');

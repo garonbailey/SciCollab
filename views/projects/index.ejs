@@ -11,15 +11,16 @@
 
 		<h2>All Current Projects</h2>
 		<% projects.forEach( function (project) { %>
-			<h3 class="showDescription"><%= project.title %></h3>
-				<div id="projectDescription" class="hidden">
-					<p><%= project.description %></p>
-					<% if (project.open) { %>
+			<div class="projectDescription">
+				<h3><%= project.title %></a></h3>
+					<p><%= project.description %> 
+					<% if (project.open || project.author.id === presentUser._id) { %>
 						<a href="/projects/<%= project._id %>">View Project . . .</a>
 					<% } else { %> 
-						<p><em>Private Project</em></p>
+						<em>Private Project</em>
 					<% } %>
-				</div>
+					</p>
+			</div>
 		<% }) %>
 
 	</main>

@@ -40,8 +40,11 @@
 				<p><%= singleUser.bio %></p>
 			<h4>Projects:</h4>
 				<ul>
-					<% singleUser.projects.forEach (function (project) { %>
-						<li><a href="/projects/<%= project.id %>"><%= project.name %></a></li>
+					<% userProjects.forEach (function (project) { %>
+						<li><a href="/projects/<%= project._id %>"><%= project.title %></a></li>
+					<% }); %>
+					<% userCollabs.forEach (function (collab) { %>
+						<li><a href="/projects/<%= collab._id %>"><%= collab.title %></a></li>
 					<% }); %>
 				</ul>
 
