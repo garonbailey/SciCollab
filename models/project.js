@@ -7,11 +7,13 @@ var projectSchema = new Schema ({
 		name: { type: String, required: true },
 		id: { type: String, required: true }
 	},
-	collaborators: [{
-		name: String,
-		id: String
+	collaborators: [{ 
+		name: { type: String },
+		id: { type: String }
 	}],
 	description: { type: String, required: true },
+	category: { type: String, required: true },
+	subcategory: [{ type: String }],
 	data: {
 		layout: [{}],
 		data: [{}]

@@ -11,11 +11,28 @@
 
 		<form action="/projects/" method="POST">
 			<input type="text" name="project[title]" placeholder="Project name or title"><br/>
-			<textarea col=64 rows=8 name="project[description]" placeholder="What's a short abstract for this research project?"></textarea><br/>
+			<textarea rows=8 name="project[description]" placeholder="What's a short abstract for this research project?"></textarea><br/>
+			<p>Project Field</p>
+			<select name="project[category]">
+				<option value="biology">Biology</option>
+				<option value="chemistry">Chemistry</option>
+				<option value="physics">Physics</option>
+				<option value="geology">Geology</option>
+				<option value="interdisciplinary">Interdisciplinary</option>
+			</select><br/>
+			<input type="text" name="project[subcategory]" placeholder="Subcategories, separated by commas"><br/>
+			<p>Private or Open Project?</p>
 			<select name="project[open]">
 				<option value="true">Open</option>
 				<option value="false">Private</option>
-			</select>
+			</select><br/>
+			<p>Add Collaborators</p>
+			<% allUsers.forEach( function (user) { %>
+				<% if (user.password !== presentUser.password) { %>
+					<label for="checkbox<%= user._id %>"><%= user.firstname %> <%= user.lastname %></label>
+						<input type="checkbox" name="project[collaboratorInit][]" id="checkbox<%= user._id %>" value="<%= user._id %>, <%= user.firstname %> <%= user.lastname %>">
+				<% } %>
+			<% }); %>
 			<input type="submit" value="Add new project">
 		</form>
 

@@ -9,10 +9,34 @@
 	</header>
 	<main>
 
-		<h2><%= project.name %></h2>
+		<h2><%= project.title %></h2>
+		<h3>Project Lead: <a href="../users/<%= project.author.id %>"><%= project.author.name %></a></h3>
+		<h4>Collaborators:</h4>
+			<ul>
+				<% project.collaborators.forEach (function (collab) { %> 
+					<li><a href="../users/<%= collab.id %>"><%= collab.name %></a></li>
+				<% }); %>
+			</ul>
+		<p><em>Abstract</em>: <%= project.description %></p>
+
+		<% if (presentUser._id === project.author.id) { %>
+			<a href="/projects/<%= project._id %>/edit">Add Data</a>
+		<% } else { %>
+			<% for (var i = 0; i < project.collaborators.length; i++) { %>
+				<% if (presentUser._id === project.collaborators[i].id) { %>
+					<a href="/projects/<%= project._id %>/edit">Add Data</a>
+				<% } %>
+			<% } %>
+
+		<% } %>
 
 	</main>
 	<% include ../partials/footer %>
+	<script>
+		$('.addSomeData').on('click', function () {
+			var inputs = prompt("How many data points do you have today?");
+		});
+	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="/app.js"></script>
 </body>
