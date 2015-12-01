@@ -42,7 +42,7 @@
 				<ul>
 					<% userProjects.forEach (function (project) { %>
 						<li><%= project.title %>
-						<% if (project.open || singleUser._id === presentUser._id) { %>
+						<% if (project.open || singleUser.password === presentUser.password) { %>
 							<a href="/projects/<%= project._id %>">View Project . . .</a>
 						<% } else { %> 
 							<em>Private Project</em></li>
@@ -50,7 +50,7 @@
 					<% }); %>
 					<% userCollabs.forEach (function (collab) { %>
 						<li><%= collab.title %>
-						<% if (collab.open || singleUser._id === presentUser._id) { %>
+						<% if (collab.open || singleUser.password === presentUser.password) { %>
 							<a href="/projects/<%= collab._id %>">View Project . . .</a>
 						<% } else { %> 
 							<em>Private Project</em></li>
