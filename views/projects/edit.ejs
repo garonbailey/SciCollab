@@ -13,18 +13,32 @@
 
 		<button class="projectData">Add data point</button>
 		<form id="projectDataForm" action="./?_method=PATCH" method="post">
-			<input type="text" name="project[layout][type]" placeholder="Chart Type">
-			<input type="text" name="project[layout][mode]" placeholder="Chart Mode">
-			<input type="float" name="project[data][x][value][]" placeholder="X Value">
-			<input type="float" name="project[data][x][value][]" placeholder="X Value">
-			<input type="float" name="project[data][x][value][]" placeholder="X Value">
-			<input type="float" name="project[data][x][value][]" placeholder="X Value">
-			<input type="float" name="project[data][y][value][]" placeholder="Y Value">
-			<input type="float" name="project[data][y][value][]" placeholder="Y Value">
-			<input type="float" name="project[data][y][value][]" placeholder="Y Value">
-			<input type="float" name="project[data][y][value][]" placeholder="Y Value">
-			<input type="hidden" name="project[data][updater]" value="<%= presentUser.firstname %> <%= presentUser.lastname %>">
-			<input type="submit" value="Add Data">
+			<h3>Chart Layout Type</h3>
+			<select name="project[layout][type]">
+				<option value="scatter">Scatter Plot</option>
+				<option value="bar">Bar Graph</option>
+			</select>
+			<h3>Chart Layout Mode</h3>
+			<select name="project[layout][mode]">
+				<option value="lines">Lines</option>
+				<option value="markers">Markers</option>
+				<option value="lines+markers">Lines and Markers</option>
+				<option value="markers+text">Markers with Text</option>
+			</select>
+			<h3>Point 1</h3>
+				<input type="text" name="project[data][x][value][]" placeholder="X Value">
+				<input type="float" name="project[data][y][value][]" placeholder="Y Value">
+			<h3>Point 2</h3>
+				<input type="text" name="project[data][x][value][]" placeholder="X Value">
+				<input type="float" name="project[data][y][value][]" placeholder="Y Value">
+			<h3>Point 3</h3>
+				<input type="text" name="project[data][x][value][]" placeholder="X Value">
+				<input type="float" name="project[data][y][value][]" placeholder="Y Value">
+			<h3>Point 4</h3>
+				<input type="text" name="project[data][x][value][]" placeholder="X Value">
+				<input type="float" name="project[data][y][value][]" placeholder="Y Value">
+				<input type="hidden" name="project[data][updater]" value="<%= presentUser.firstname %> <%= presentUser.lastname %>">
+				<input type="submit" value="Add Data">
 		</form>
 
 	</main>
