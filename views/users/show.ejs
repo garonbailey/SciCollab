@@ -41,17 +41,19 @@
 			<h4>Projects:</h4>
 				<ul>
 					<% userProjects.forEach (function (project) { %>
-						<% if (!project.open) { %>
-							<li><%= project.title %> <em>Private Project</em></li>
-						<% } else { %>
-							<li><a href="/projects/<%= project._id %>"><%= project.title %></a></li>
+						<li><%= project.title %>
+						<% if (project.open || singleUser._id === presentUser._id) { %>
+							<a href="/projects/<%= project._id %>">View Project . . .</a>
+						<% } else { %> 
+							<em>Private Project</em></li>
 						<% } %>
 					<% }); %>
 					<% userCollabs.forEach (function (collab) { %>
-						<% if (!project.open) { %>
-							<li><%= collab.title %> <em>Private Project</em></li>
-						<% } else { %>
-							<li><a href="/projects/<%= collab._id %>"><%= collab.title %></a></li>
+						<li><%= collab.title %>
+						<% if (collab.open || singleUser._id === presentUser._id) { %>
+							<a href="/projects/<%= collab._id %>">View Project . . .</a>
+						<% } else { %> 
+							<em>Private Project</em></li>
 						<% } %>
 					<% }); %>
 				</ul>
